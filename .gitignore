@@ -6,7 +6,9 @@ logs
 !/knowledge_base/samples
 /knowledge_base/samples/vector_store
 
-/configs/*.py
+/model_hub/*
+
+#/configs/*.py
 .vscode/
 
 # below are standard python ignore files

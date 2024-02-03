@@ -10,12 +10,12 @@ from configs import VERSION
 from server.utils import api_address
 
 api = ApiRequest(base_url=api_address())
-
 if 'logged_in' not in st.session_state:
     st.session_state.logged_in = False
 
 if __name__ == "__main__":
-    if st.session_state.logged_in:
+
+    if not st.session_state.logged_in:
         st.title("互联网金融纠纷调解平台")
         login_page()
 
@@ -69,7 +69,6 @@ if __name__ == "__main__":
             )
 
         if selected_page in pages:
-
             pages[selected_page]["func"](api=api, is_lite=is_lite)
 
             if st.sidebar.button("Logout"):
