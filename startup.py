@@ -1,5 +1,5 @@
-import asyncio
 import multiprocessing as mp
+import asyncio
 import os
 import subprocess
 import sys
@@ -9,6 +9,7 @@ from pprint import pprint
 
 
 # 设置numexpr最大线程数，默认为CPU核心数
+
 try:
     import numexpr
 
@@ -60,7 +61,7 @@ def create_controller_app(
     return app
 
 
-def create_model_worker_app(log_level: str = "INFO", **kwargs) -> FastAPI:
+def create_model_worker_app(log_level: str = "INFO", vllm=None, **kwargs) -> FastAPI:
     """
     kwargs包含的字段如下：
     host:
@@ -107,7 +108,7 @@ def create_model_worker_app(log_level: str = "INFO", **kwargs) -> FastAPI:
             import fastchat.serve.vllm_worker
             from fastchat.serve.vllm_worker import VLLMWorker, app, worker_id
             from vllm import AsyncLLMEngine
-            from vllm.engine.arg_utils import AsyncEngineArgs,EngineArgs
+            from vllm.engine.arg_utils import (AsyncEngineArgs,EngineArgs)
 
             args.tokenizer = args.model_path # 如果tokenizer与model_path不一致在此处添加
             args.tokenizer_mode = 'auto'
