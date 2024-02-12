@@ -4,6 +4,7 @@ from streamlit_option_menu import option_menu
 from webui_pages.dialogue.dialogue import dialogue_page, chat_box
 from webui_pages.knowledge_base.knowledge_base import knowledge_base_page
 from webui_pages.login.login import login_page
+from webui_pages.login.login import user_information_page
 import os
 import sys
 from configs import VERSION
@@ -16,7 +17,6 @@ if 'logged_in' not in st.session_state:
 if __name__ == "__main__":
 
     if not st.session_state.logged_in:
-        st.title("互联网金融纠纷调解平台")
         login_page()
 
     else:
@@ -41,6 +41,11 @@ if __name__ == "__main__":
             "知识库管理": {
                 "icon": "hdd-stack",
                 "func": knowledge_base_page,
+
+            },
+            "个人信息": {
+                "icon": "hdd-stack",
+                "func": user_information_page,
             },
         }
 
@@ -71,6 +76,3 @@ if __name__ == "__main__":
         if selected_page in pages:
             pages[selected_page]["func"](api=api, is_lite=is_lite)
 
-            if st.sidebar.button("Logout"):
-                st.session_state.logged_in = False  # 退出登录状态
-                st.experimental_rerun()

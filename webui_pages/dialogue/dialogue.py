@@ -243,6 +243,7 @@ def dialogue_page(api: ApiRequest, is_lite: bool = False):
 
                 # Bge 模型会超过1
                 score_threshold = st.slider("知识匹配分数阈值：", 0.0, 2.0, float(SCORE_THRESHOLD), 0.01)
+
         # elif dialogue_mode == "文件对话":
         #     with st.expander("文件对话配置", True):
         #         files = st.file_uploader("上传知识文件：",
