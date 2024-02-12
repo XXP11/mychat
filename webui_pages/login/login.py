@@ -62,10 +62,10 @@ def user_information_page(api: ApiRequest, is_lite: bool = None):
     if user_info is not None:
         selected_columns = [0, 8, 5, 9, 10, 6, 11, 4]  # 指定你想要选择的8个列的索引
         selected_info = [user_info[i] for i in selected_columns]  # 根据索引从user_info中选择相应的列
-        index = ['当事人姓名', '欠款原因', '欠款项目', '欠款金额', '总利息', '逾期天数', '总罚息', '总欠款']
+        index = ['当事人信息', '欠款原因', '欠款项目', '欠款金额', '总利息', '逾期天数', '总罚息', '总欠款']
         user_series = pd.Series(selected_info, index=index)
-        user_df = pd.DataFrame(user_series)
-        st.table(user_df)
+        st.table(user_series)
+
     else:
         st.write("未找到用户信息")
 

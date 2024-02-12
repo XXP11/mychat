@@ -23,7 +23,7 @@ if __name__ == "__main__":
         is_lite = "lite" in sys.argv
         st.set_page_config(
             "Langchain-Chatchat WebUI",
-            os.path.join("img", "chatchat_icon_blue_square_v2.png"),
+            os.path.join("img", "login_title.png"),
             initial_sidebar_state="expanded",
             menu_items={
                 'Get Help': 'https://github.com/chatchat-space/Langchain-Chatchat',
@@ -53,13 +53,9 @@ if __name__ == "__main__":
             st.image(
                 os.path.join(
                     "img",
-                    "logo-long-chatchat-trans-v2.png"
+                    "login_title.png"
                 ),
                 use_column_width=True
-            )
-            st.caption(
-                f"""<p align="right">当前版本：{VERSION}</p>""",
-                unsafe_allow_html=True,
             )
             options = list(pages)
             icons = [x["icon"] for x in pages.values()]
