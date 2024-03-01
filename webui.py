@@ -1,24 +1,23 @@
 import streamlit as st
 from webui_pages.record_out import *
 from streamlit_option_menu import option_menu
-from webui_pages.dialogue.dialogue import dialogue_page, chat_box
+from webui_pages.dialogue.dialogue import dialogue_page
 from webui_pages.knowledge_base.knowledge_base import knowledge_base_page
-from webui_pages.login.login import login_page
+from webui_pages.login.login import login_page, save_db, username
 from webui_pages.login.login import user_information_page
 import os
 import sys
 from configs import VERSION
 from server.utils import api_address
 
+
 api = ApiRequest(base_url=api_address())
 if 'logged_in' not in st.session_state:
     st.session_state.logged_in = False
 
 if __name__ == "__main__":
-
     if not st.session_state.logged_in:
         login_page()
-
     else:
         is_lite = "lite" in sys.argv
         st.set_page_config(
