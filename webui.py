@@ -79,10 +79,7 @@ if __name__ == "__main__":
 
 def my_function():
     global my_time
-    print(my_time)
-    print(st.session_state.start_time)
     end_time = datetime.now()
-    print(end_time)
     time_difference = end_time - st.session_state.start_time
     if time_difference.seconds >= 60 and my_time != st.session_state.start_time:
         save_db(username)
