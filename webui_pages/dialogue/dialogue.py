@@ -2,15 +2,14 @@ import streamlit as st
 from webui_pages.record_out import *
 from streamlit_chatbox import *
 from streamlit_modal import Modal
-from datetime import datetime
 import os
 import re
 import time
 from configs import (TEMPERATURE, HISTORY_LEN, PROMPT_TEMPLATES,
                      DEFAULT_KNOWLEDGE_BASE, DEFAULT_SEARCH_ENGINE, SUPPORT_AGENT_MODEL)
-from server.knowledge_base.utils import LOADER_DICT
 import uuid
 from typing import List, Dict
+from datetime import datetime
 
 chat_box = ChatBox(
     assistant_avatar=os.path.join(
@@ -18,6 +17,8 @@ chat_box = ChatBox(
         "chatchat_icon_blue_square_v2.png"
     )
 )
+
+
 
 
 def get_messages_history(history_len: int, content_in_expander: bool = False) -> List[Dict]:
@@ -291,7 +292,7 @@ def dialogue_page(api: ApiRequest, is_lite: bool = False):
         "feedback_type": "thumbs",
         "optional_text_label": "欢迎反馈您打分的理由",
     }
-
+    """
     if "run_once" not in st.session_state:
         st.session_state.run_once = True  # 添加一个变量来标记是否已经运行过
 
@@ -333,8 +334,9 @@ def dialogue_page(api: ApiRequest, is_lite: bool = False):
                                                    "history_index": len(chat_box.history) - 1})
 
                     st.session_state.run_once = False  # 将变量设为False，以便下次跳过代码段的执行
-
+        """
     if prompt := st.chat_input(chat_input_placeholder, key="prompt"):
+        st.session_state.start_time = datetime.now()
         if parse_command(text=prompt, modal=modal):  # 用户输入自定义命令
             st.rerun()
         else:
@@ -366,6 +368,7 @@ def dialogue_page(api: ApiRequest, is_lite: bool = False):
                                        key=message_id,
                                        on_submit=on_feedback,
                                        kwargs={"message_id": message_id, "history_index": len(chat_box.history) - 1})
+
             elif dialogue_mode == "知识库问答":
                 chat_box.ai_say([
                     f"正在查询知识库 `{selected_kb}` ...",
@@ -478,7 +481,6 @@ def dialogue_page(api: ApiRequest, is_lite: bool = False):
 
     now = datetime.now()
     with st.sidebar:
-
         cols = st.columns(2)
         export_btn = cols[0]
         if cols[1].button(

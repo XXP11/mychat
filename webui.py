@@ -1,3 +1,5 @@
+from datetime import datetime
+import time
 import streamlit as st
 from webui_pages.record_out import *
 from streamlit_option_menu import option_menu
@@ -10,14 +12,17 @@ import sys
 from configs import VERSION
 from server.utils import api_address
 
-
 api = ApiRequest(base_url=api_address())
 if 'logged_in' not in st.session_state:
     st.session_state.logged_in = False
+if 'start_time' not in st.session_state:
+    st.session_state.start_time = datetime.now()
+my_time = st.session_state.start_time
 
 if __name__ == "__main__":
     if not st.session_state.logged_in:
         login_page()
+        st.session_state.start_time = datetime.now()
     else:
         is_lite = "lite" in sys.argv
         st.set_page_config(
@@ -71,3 +76,19 @@ if __name__ == "__main__":
         if selected_page in pages:
             pages[selected_page]["func"](api=api, is_lite=is_lite)
 
+
+def my_function():
+    global my_time
+    print(my_time)
+    print(st.session_state.start_time)
+    end_time = datetime.now()
+    print(end_time)
+    time_difference = end_time - st.session_state.start_time
+    if time_difference.seconds >= 60 and my_time != st.session_state.start_time:
+        save_db(username)
+        my_time = st.session_state.start_time
+
+
+while True:
+    my_function()
+    time.sleep(60)  # 暂停十秒钟后再次执行
