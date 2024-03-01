@@ -1,0 +1,63 @@
+from typing import Callable
+from streamlit_chatbox import *
+import mysql.connector
+
+# chat_box = ChatBox()
+
+# 连接到 MySQL 数据库
+mydb = mysql.connector.connect(
+    host='localhost',
+    database='users',
+    user='root1',
+    password='123456'
+)
+
+# 创建一个数据库游标
+my_cursor = mydb.cursor()
+
+
+def export2json(
+        chat_box: ChatBox,
+        chat_name: str = None,
+        callback: Callable = None,
+) -> list:
+    chat_box.init_session()
+    export_dict = []
+    export_user = []
+
+    history = chat_box.other_history(chat_name)
+
+    for msg in history:
+        if callable(callback):
+            exported_msg = callback(msg)
+        else:
+            contents = [e.content for e in msg["elements"]]
+            if msg["role"] == "user":
+                content = " ".join(contents)
+                export_dict.append({"user": content, "Assistant": ""})
+                export_user.append(content)
+            else:
+                content = " ".join(contents)
+                export_dict[-1]["Assistant"] = content
+    return export_dict
+
+
+def export2user(
+        chat_box: ChatBox,
+        chat_name: str = None,
+        callback: Callable = None,
+) -> list:
+    chat_box.init_session()
+    export_user = []
+
+    history = chat_box.other_history(chat_name)
+
+    for msg in history:
+        if callable(callback):
+            exported_msg = callback(msg)
+        else:
+            contents = [e.content for e in msg["elements"]]
+            if msg["role"] == "user":
+                content = " ".join(contents)
+                export_user.append(content)
+    return export_user

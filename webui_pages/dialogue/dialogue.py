@@ -1,5 +1,5 @@
 import streamlit as st
-from webui_pages.utils import *
+from webui_pages.record_out import *
 from streamlit_chatbox import *
 from streamlit_modal import Modal
 from datetime import datetime
@@ -292,11 +292,15 @@ def dialogue_page(api: ApiRequest, is_lite: bool = False):
         "optional_text_label": "欢迎反馈您打分的理由",
     }
 
+
+    """
     if "run_once" not in st.session_state:
         st.session_state.run_once = True  # 添加一个变量来标记是否已经运行过
 
     if st.session_state.run_once:
+        
         if prompt := st.chat_input(chat_input_placeholder, key="prompt1"):
+
             if parse_command(text=prompt, modal=modal):  # 用户输入自定义命令
                 st.rerun()
             else:
@@ -331,7 +335,7 @@ def dialogue_page(api: ApiRequest, is_lite: bool = False):
                                                    "history_index": len(chat_box.history) - 1})
 
                     st.session_state.run_once = False  # 将变量设为False，以便下次跳过代码段的执行
-
+"""
     if prompt := st.chat_input(chat_input_placeholder, key="prompt"):
         if parse_command(text=prompt, modal=modal):  # 用户输入自定义命令
             st.rerun()
@@ -469,6 +473,7 @@ def dialogue_page(api: ApiRequest, is_lite: bool = False):
             #             chat_box.update_msg(text, element_index=0)
             #     chat_box.update_msg(text, element_index=0, streaming=False)
             #     chat_box.update_msg("\n\n".join(d.get("docs", [])), element_index=1, streaming=False)
+
 
     if st.session_state.get("need_rerun"):
         st.session_state["need_rerun"] = False

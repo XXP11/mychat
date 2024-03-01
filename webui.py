@@ -1,5 +1,5 @@
 import streamlit as st
-from webui_pages.utils import *
+from webui_pages.record_out import *
 from streamlit_option_menu import option_menu
 from webui_pages.dialogue.dialogue import dialogue_page, chat_box
 from webui_pages.knowledge_base.knowledge_base import knowledge_base_page

@@ -16,7 +16,7 @@ python webui_alline.py --model-path-address model@host@port --num-gpus 2 --gpus 
 
 """
 import streamlit as st
-from webui_pages.utils import *
+from webui_pages.record_out import *
 from streamlit_option_menu import option_menu
 from webui_pages import *
 import os

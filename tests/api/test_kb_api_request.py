@@ -8,7 +8,7 @@ sys.path.append(str(root_path))
 from server.utils import api_address
 from configs import VECTOR_SEARCH_TOP_K
 from server.knowledge_base.utils import get_kb_path, get_file_path
-from webui_pages.utils import ApiRequest
+from webui_pages.record_out import ApiRequest
 
 from pprint import pprint
 

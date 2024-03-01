@@ -1,12 +1,14 @@
+import json
 import os
 
 import mysql.connector
 import streamlit as st
 import pandas as pd
-import sqlite3
 
+from model_hub.model_predict.get_predict_result import get_predict_result
 from webui_pages.dialogue.dialogue import chat_box
-from webui_pages.utils import ApiRequest
+from webui_pages.record.record_out import export2json, export2user
+from webui_pages.record_out import ApiRequest
 
 # 连接到数据库
 connection = mysql.connector.connect(
@@ -17,8 +19,19 @@ connection = mysql.connector.connect(
 )
 
 cursor = connection.cursor()
-
 username = ""
+
+
+def save_db(username):
+    user_id = username
+    content = export2json(chat_box)
+    list_str = json.dumps(content)
+    is_success = get_predict_result()
+    sql = "INSERT INTO mediation_record (content, is_success, user_id) VALUES (%s, %s, %s)"
+    cursor.execute(sql, (list_str, is_success, user_id))
+
+    # 提交更改并关闭连接
+    connection.commit()
 
 
 def login_page():
@@ -81,6 +94,8 @@ def user_information_page(api: ApiRequest, is_lite: bool = None):
         pass
     with cols[2]:
         if st.button('退出登录'):
+            #print(get_predict_result())
+            save_db(username)
             st.session_state.logged_in = False  # 退出登录状态
             chat_box.reset_history()
             st.session_state.run_once = True

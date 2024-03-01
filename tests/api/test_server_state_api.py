@@ -3,7 +3,7 @@ from pathlib import Path
 root_path = Path(__file__).parent.parent.parent
 sys.path.append(str(root_path))
 
-from webui_pages.utils import ApiRequest
+from webui_pages.record_out import ApiRequest
 
 import pytest
 from pprint import pprint
