@@ -292,7 +292,6 @@ def dialogue_page(api: ApiRequest, is_lite: bool = False):
         "feedback_type": "thumbs",
         "optional_text_label": "欢迎反馈您打分的理由",
     }
-    """
     if "run_once" not in st.session_state:
         st.session_state.run_once = True  # 添加一个变量来标记是否已经运行过
 
@@ -334,7 +333,7 @@ def dialogue_page(api: ApiRequest, is_lite: bool = False):
                                                    "history_index": len(chat_box.history) - 1})
 
                     st.session_state.run_once = False  # 将变量设为False，以便下次跳过代码段的执行
-        """
+
     if prompt := st.chat_input(chat_input_placeholder, key="prompt"):
         st.session_state.start_time = datetime.now()
         if parse_command(text=prompt, modal=modal):  # 用户输入自定义命令
