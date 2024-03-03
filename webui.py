@@ -88,7 +88,6 @@ def my_function():
     while True:
         time.sleep(60)  # 暂停60秒钟后再次执行
 
-
 if 'thread' not in st.session_state:
     st.session_state.thread = threading.Thread(target=my_function)
     st.session_state.thread.start()
