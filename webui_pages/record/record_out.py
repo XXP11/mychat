@@ -38,7 +38,10 @@ def export2json(
                 export_user.append(content)
             else:
                 content = " ".join(contents)
-                export_dict[-1]["Assistant"] = content
+                if export_dict:  # 检查export_dict是否为空
+                    export_dict[-1]["Assistant"] = content
+                else:
+                    export_dict.append({"user": "", "Assistant": content})  # 初始化export_dict
     return export_dict
 
 

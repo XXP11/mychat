@@ -22,8 +22,7 @@ def get_predict_result():
     loaded_model = SimpleClassifier(input_size, hidden_size, output_size)
 
     # 加载模型参数和优化器状态
-    checkpoint = torch.load('D:/Langchain-Chatchat/model_hub/model_predict/saved_model_threshold_0.5_300_epoch_lr_0'
-                            '.004.pth')
+    checkpoint = torch.load('D:/Langchain-Chatchat/saved_model_threshold_0.5_300_epoch_lr_0.004.pth')
     loaded_model.load_state_dict(checkpoint['model_state_dict'])
 
     # 将模型设置为评估模式
