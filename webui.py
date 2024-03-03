@@ -1,3 +1,4 @@
+import threading
 from datetime import datetime
 import time
 import streamlit as st
@@ -84,8 +85,10 @@ def my_function():
     if time_difference.seconds >= 60 and my_time != st.session_state.start_time:
         save_db(username)
         my_time = st.session_state.start_time
+    while True:
+        time.sleep(60)  # 暂停60秒钟后再次执行
 
 
-while True:
-    my_function()
-    time.sleep(60)  # 暂停十秒钟后再次执行
+if 'thread' not in st.session_state:
+    st.session_state.thread = threading.Thread(target=my_function)
+    st.session_state.thread.start()
