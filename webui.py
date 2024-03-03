@@ -20,6 +20,7 @@ if 'start_time' not in st.session_state:
     st.session_state.start_time = datetime.now()
 my_time = st.session_state.start_time
 
+
 if __name__ == "__main__":
     if not st.session_state.logged_in:
         login_page()
