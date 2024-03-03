@@ -77,7 +77,6 @@ if __name__ == "__main__":
         if selected_page in pages:
             pages[selected_page]["func"](api=api, is_lite=is_lite)
 
-
 def my_function():
     global my_time
     end_time = datetime.now()
