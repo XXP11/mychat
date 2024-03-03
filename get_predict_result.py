@@ -1,8 +1,9 @@
-from model_hub.model_predict.predict_mediate_result import SimpleClassifier, get_result
+#from model_hub.model_predict.predict_mediate_result import SimpleClassifier, get_result
 from transformers import BertModel, BertTokenizer
 import torch
 import torch.nn as nn
 
+from predict_mediate_result import SimpleClassifier, get_result
 from webui_pages.dialogue.dialogue import chat_box
 from webui_pages.record.record_out import export2user
 

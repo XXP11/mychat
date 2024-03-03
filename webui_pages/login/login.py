@@ -5,8 +5,7 @@ import mysql.connector
 import streamlit as st
 import pandas as pd
 
-
-from model_hub.model_predict.get_predict_result import get_predict_result
+from get_predict_result import get_predict_result
 from webui_pages.dialogue.dialogue import chat_box
 from webui_pages.record.record_out import export2json
 from webui_pages.record_out import ApiRequest
