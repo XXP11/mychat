@@ -7,12 +7,11 @@ from server.knowledge_base.utils import get_file_path, LOADER_DICT
 from server.knowledge_base.kb_service.base import get_kb_details, get_kb_file_details
 from typing import Literal, Dict, Tuple
 from configs import (kbs_config,
-                    EMBEDDING_MODEL, DEFAULT_VS_TYPE,
-                    CHUNK_SIZE, OVERLAP_SIZE, ZH_TITLE_ENHANCE)
+                     EMBEDDING_MODEL, DEFAULT_VS_TYPE,
+                     CHUNK_SIZE, OVERLAP_SIZE, ZH_TITLE_ENHANCE)
 from server.utils import list_embed_models, list_online_embed_models
 import os
 import time
-
 
 # SENTENCE_SIZE = 100
 
@@ -59,7 +58,8 @@ def knowledge_base_page(api: ApiRequest, is_lite: bool = None):
     try:
         kb_list = {x["kb_name"]: x for x in get_kb_details()}
     except Exception as e:
-        st.error("获取知识库信息错误，请检查是否已按照 `README.md` 中 `4 知识库初始化与迁移` 步骤完成初始化或迁移，或是否为数据库连接错误。")
+        st.error(
+            "获取知识库信息错误，请检查是否已按照 `README.md` 中 `4 知识库初始化与迁移` 步骤完成初始化或迁移，或是否为数据库连接错误。")
         st.stop()
     kb_names = list(kb_list.keys())
 
@@ -150,7 +150,8 @@ def knowledge_base_page(api: ApiRequest, is_lite: bool = None):
                                  [i for ls in LOADER_DICT.values() for i in ls],
                                  accept_multiple_files=True,
                                  )
-        kb_info = st.text_area("请输入知识库介绍:", value=st.session_state["selected_kb_info"], max_chars=None, key=None,
+        kb_info = st.text_area("请输入知识库介绍:", value=st.session_state["selected_kb_info"], max_chars=None,
+                               key=None,
                                help=None, on_change=None, args=None, kwargs=None)
 
         if kb_info != st.session_state["selected_kb_info"]:
@@ -252,7 +253,8 @@ def knowledge_base_page(api: ApiRequest, is_lite: bool = None):
             st.write()
             # 将文件分词并加载到向量库中
             if cols[1].button(
-                    "重新添加至向量库" if selected_rows and (pd.DataFrame(selected_rows)["in_db"]).any() else "添加至向量库",
+                    "重新添加至向量库" if selected_rows and (
+                    pd.DataFrame(selected_rows)["in_db"]).any() else "添加至向量库",
                     disabled=not file_exists(kb, selected_rows)[0],
                     use_container_width=True,
             ):
@@ -325,11 +327,12 @@ def knowledge_base_page(api: ApiRequest, is_lite: bool = None):
         if selected_rows:
             file_name = selected_rows[0]["file_name"]
             docs = api.search_kb_docs(knowledge_base_name=selected_kb, file_name=file_name)
-            data = [{"seq": i+1, "id": x["id"], "page_content": x["page_content"], "source": x["metadata"].get("source"),
-                    "type": x["type"],
-                    "metadata": json.dumps(x["metadata"], ensure_ascii=False),
-                    "to_del": "",
-                    } for i, x in enumerate(docs)]
+            data = [
+                {"seq": i + 1, "id": x["id"], "page_content": x["page_content"], "source": x["metadata"].get("source"),
+                 "type": x["type"],
+                 "metadata": json.dumps(x["metadata"], ensure_ascii=False),
+                 "to_del": "",
+                 } for i, x in enumerate(docs)]
             df = pd.DataFrame(data)
 
             gb = GridOptionsBuilder.from_dataframe(df)
@@ -357,8 +360,8 @@ def knowledge_base_page(api: ApiRequest, is_lite: bool = None):
 
                 if changed_docs:
                     if api.update_kb_docs(knowledge_base_name=selected_kb,
-                                        file_names=[file_name],
-                                        docs={file_name: changed_docs}):
+                                          file_names=[file_name],
+                                          docs={file_name: changed_docs}):
                         st.toast("更新文档成功")
                     else:
                         st.toast("更新文档失败")

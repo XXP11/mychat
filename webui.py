@@ -23,7 +23,6 @@ my_time = st.session_state.start_time
 if __name__ == "__main__":
     if not st.session_state.logged_in:
         login_page()
-        st.session_state.start_time = datetime.now()
     else:
         is_lite = "lite" in sys.argv
         st.set_page_config(
@@ -77,15 +76,20 @@ if __name__ == "__main__":
         if selected_page in pages:
             pages[selected_page]["func"](api=api, is_lite=is_lite)
 
+
 def my_function():
     global my_time
+    # print(f"my_time是{my_time}")
+    # print(f"开始时间{st.session_state.start_time}")
     end_time = datetime.now()
+    # print(f"结束时间是{end_time}")
     time_difference = end_time - st.session_state.start_time
-    if time_difference.seconds >= 60 and my_time != st.session_state.start_time:
+    if time_difference.seconds >= 10 and my_time != st.session_state.start_time:
         save_db(username)
         my_time = st.session_state.start_time
     while True:
-        time.sleep(60)  # 暂停60秒钟后再次执行
+        # my_function()
+        time.sleep(10)  # 暂停十秒钟后再次执行
 
 
 if 'thread' not in st.session_state:
